@@ -15,31 +15,43 @@ export default function Routines() {
           {
             method: "GET",
             headers: {
-              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+              // Authorization: `Bearer ${token}`,
             },
           }
         );
-
-        const {
-          data: { routines },
-        } = await response.json();
-        console.log(routines);
+        const routines = await response.json();
+        // console.log(routines);
         setRoutines(routines);
       } catch (err) {
         console.error(err);
       }
     };
+
     getRoutines();
   }, []);
 
-  console.log(routines);
+  // console.log({ routines });
 
   return (
     <div>
-      {routines.map(({ id, name, goal, creatorName, activities }) => {
+      {routines.map(({ id, name, creatorName, goal, activities }) => {
         return (
           <section key={id}>
-            <h3>{name}</h3>
+            <h1>{name}</h1>
+            <h3>{creatorName}</h3>
+            <div>{goal}</div>
+            {activities.map(({ count, description, duration, name, id }) => {
+              return (
+                <div key={id}>
+                  <h2>{name}</h2>
+                  <h4>
+                    COUNT:{count}, DURATION:{duration}
+                  </h4>
+                  <div>{description}</div>
+                </div>
+              );
+            })}
           </section>
         );
       })}

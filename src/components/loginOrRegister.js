@@ -26,14 +26,15 @@ export default function LoginOrRegister() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ user: form }),
+          body: JSON.stringify(form),
         }
       );
 
-      const { success, error, data } = await response.json;
+      const { user, message, token } = await response.json;
 
-      if (success) {
-        localStorage.ft_token = data.token;
+      if (user) {
+        localStorage.st_token = token;
+        console.log(message);
         updateAuthStatus();
       } else {
         throw new Error(
@@ -48,31 +49,31 @@ export default function LoginOrRegister() {
     }
   }
   return (
-    // <form onSubmit={handleSubmit}>
-    //   <div className="formField">
-    //     <label>{loginOrRegister === "register" && "Choose "}Username: </label>
-    //     <input
-    //       type="text"
-    //       name="username"
-    //       value={form.username}
-    //       onChange={handleChange}
-    //     />
-    //   </div>
-    //   <div className="formField">
-    //     <label>{loginOrRegister === "register" && "Choose "}Password: </label>
-    //     <input
-    //       type="password"
-    //       name="password"
-    //       value={form.password}
-    //       onChange={handleChange}
-    //     />
-    //   </div>
-    //   <input
-    //     type="submit"
-    //     value={loginOrRegister === "register" ? "Sign Up" : "Login"}
-    //   />
-    // </form>
+    <form onSubmit={handleSubmit}>
+      <div className="formField">
+        <label>{loginOrRegister === "register" && "Choose "}Username: </label>
+        <input
+          type="text"
+          name="username"
+          value={form.username}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="formField">
+        <label>{loginOrRegister === "register" && "Choose "}Password: </label>
+        <input
+          type="password"
+          name="password"
+          value={form.password}
+          onChange={handleChange}
+        />
+      </div>
+      <input
+        type="submit"
+        value={loginOrRegister === "register" ? "Sign Up" : "Login"}
+      />
+    </form>
 
-    <div>hi im login or register</div>
+    // <div>hi im login or register</div>
   );
 }
