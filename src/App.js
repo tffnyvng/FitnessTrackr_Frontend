@@ -7,6 +7,7 @@ import {
   LoginOrRegister,
   Routines,
   Activities,
+  RoutinesForm,
   MyRoutines,
 } from "./components";
 
@@ -14,12 +15,6 @@ function App() {
   const { token, isLoggedIn, logout } = useAuth();
 
   return (
-    //   <div>
-    //     <Nav />
-    //     <Home />
-    //   </div>
-    // );
-
     <Router>
       <nav>
         <Nav />
@@ -28,17 +23,19 @@ function App() {
         {!isLoggedIn && (
           <>
             <Route path="/home" component={Home} />
-            <Route path="/login" component={LoginOrRegister} />
-            <Route path="/register" component={LoginOrRegister} />
             <Route path="/routines" component={Routines} />
             <Route path="/activities" component={Activities} />
+            <Route path="/login" component={LoginOrRegister} />
+            <Route path="/register" component={LoginOrRegister} />
           </>
         )}
         {isLoggedIn && (
           <>
             <Route path="/home" component={Home} />
-            <Route path="/routines" component={Routines} />
+            <Route exact path="/routines" component={Routines} />
             <Route path="/activities" component={Activities} />
+            <Route path="/routines/:routineId/edit" component={RoutinesForm} />
+            <Route path="/routines/:routineId/new" component={RoutinesForm} />
             {/* <Route path="/myroutines" component={MyRoutines} /> */}
           </>
         )}
