@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import { useAuth } from "../custom-hooks";
 
 export default function Activities() {
@@ -31,6 +33,8 @@ export default function Activities() {
 
   return (
     <div>
+      <Link to={`/activities/new`}>Add a New Activity</Link>
+
       <div>
         {activities.map(({ id, name, description }) => {
           return (

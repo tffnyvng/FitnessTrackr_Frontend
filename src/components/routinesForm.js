@@ -1,3 +1,5 @@
+//DELETE THIS PAGE, NO USE
+
 import React, { useState } from "react";
 import { useRoutinesForm } from "../custom-hooks";
 
@@ -54,5 +56,7 @@ export default function RoutinesForm({
       <input type="submit" value="Add Product" />
       <input type="submit" value="Edit Product" />
     </form>
+
+    // NOT IN USE
   );
 }

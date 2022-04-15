@@ -2,14 +2,20 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../custom-hooks";
 // import styled from "styled-components";
 import { Link } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 export default function Routines() {
   const [routines, setRoutines] = useState([]);
+  const [username, setUsername] = useState("");
+
   const { token, isLoggedIn } = useAuth();
 
   useEffect(() => {
     const getRoutines = async () => {
       try {
+        const { username } = jwt_decode(token);
+        setUsername(username);
+
         const response = await fetch(
           "https://fitnesstrac-kr.herokuapp.com/api/routines",
           {
@@ -20,7 +26,7 @@ export default function Routines() {
           }
         );
         const routines = await response.json();
-        // console.log(routines);
+
         setRoutines(routines);
       } catch (err) {
         console.error(err);
@@ -30,26 +36,9 @@ export default function Routines() {
     getRoutines();
   }, []);
 
-  // console.log({ routines });
-
-  ////////////////////////////////////////
-  /////THIS IS TO ADD/EDIT A ROUTINE /////
-  ////////////////////////////////////////
-
-  const addNewRoutineFromForm = (newRoutine) => {
-    setRoutines([...routines, newRoutine]);
-  };
-
-  const replaceEditedRoutine = (editedRoutine) => {
-    const updatedRoutines = routines.map((routine) =>
-      routine.id === editedRoutine.id ? editedRoutine : routine
-    );
-    setRoutines(updatedRoutines);
-  };
-  ////////////////////////////////////////
-
   return (
     <div>
+      <Link to={`/routines/new`}>Add a New Routine</Link>
       {routines.map(({ id, name, creatorName, goal, activities }) => {
         return (
           <section key={id}>
@@ -67,10 +56,8 @@ export default function Routines() {
                 </div>
               );
             })}
-            {isLoggedIn && (
-              <Link to={`/routines/${id}?name=${name}&goal=${goal}`}>
-                Edit Routine
-              </Link>
+            {isLoggedIn && username === creatorName && (
+              <Link to={`/routines/${id}/edit`}>Edit Routine</Link>
             )}
           </section>
         );

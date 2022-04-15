@@ -48,8 +48,8 @@ const loggedInLinks = [
   },
   {
     id: 4,
-    name: "My Routines",
-    to: "/myroutines",
+    name: "Me",
+    to: "/me",
   },
 ];
 

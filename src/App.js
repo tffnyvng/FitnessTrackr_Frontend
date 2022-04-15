@@ -7,8 +7,10 @@ import {
   LoginOrRegister,
   Routines,
   Activities,
-  RoutinesForm,
-  MyRoutines,
+  // RoutinesForm,
+  AddNewRoutine,
+  AddNewActivity,
+  Me,
 } from "./components";
 
 function App() {
@@ -33,10 +35,11 @@ function App() {
           <>
             <Route path="/home" component={Home} />
             <Route exact path="/routines" component={Routines} />
-            <Route path="/activities" component={Activities} />
-            <Route path="/routines/:routineId/edit" component={RoutinesForm} />
-            <Route path="/routines/:routineId/new" component={RoutinesForm} />
-            {/* <Route path="/myroutines" component={MyRoutines} /> */}
+            <Route exact path="/activities" component={Activities} />
+            <Route path="/activities/new" component={AddNewActivity} />
+            {/* <Route path="/routines/:routineId/edit" component={RoutinesForm} /> */}
+            <Route path="/routines/new" component={AddNewRoutine} />
+            <Route path="/me" component={Me} />
           </>
         )}
       </Switch>
