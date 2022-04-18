@@ -49,7 +49,7 @@ export default function AddNewRoutine() {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label>Name</label>
+        <label>Name:</label>
         <input
           type="text"
           name="name"
@@ -58,7 +58,7 @@ export default function AddNewRoutine() {
         />
       </div>
       <div>
-        <label>Goal</label>
+        <label>Goal:</label>
         <input
           type="text"
           name="goal"
@@ -67,7 +67,7 @@ export default function AddNewRoutine() {
         />
       </div>
       <div>
-        <label>Public</label>
+        <label>Public:</label>
         <input
           type="checkbox"
           name="isPublic"
@@ -75,7 +75,7 @@ export default function AddNewRoutine() {
           onChange={handleChange}
         />
       </div>
-      <input type="submit" value="Add Product" />
+      <input type="submit" value="Add Routine" />
       <button name="clear" onClick={() => history.push(`/routines`)}>
         Cancel
       </button>

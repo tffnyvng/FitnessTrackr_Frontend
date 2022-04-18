@@ -45,7 +45,6 @@ export default function Activities() {
           );
         })}
       </div>
-      <div> hi im activities </div>
     </div>
   );
 }

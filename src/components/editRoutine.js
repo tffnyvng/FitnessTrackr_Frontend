@@ -1,17 +1,22 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
+
 import { useAuth } from "../custom-hooks";
 
-export default function ActivitiesForm() {
+export default function EditRoutine() {
   const history = useHistory();
   const { token } = useAuth();
+  let { _id } = useParams();
+  console.log({ _id });
 
-  const [form, setForm] = useState({
-    name: "",
-    description: "",
-  });
+  const [form, setForm] = useState({ name: "", goal: "", isPublic: null });
 
   const handleChange = (e) => {
+    if (e.target.type === "checkbox") {
+      setForm({ ...form, [e.target.name]: e.target.checked });
+      return;
+    }
+
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -20,9 +25,9 @@ export default function ActivitiesForm() {
 
     try {
       const response = await fetch(
-        "http://fitnesstrac-kr.herokuapp.com/api/activities",
+        `https://fitnesstrac-kr.herokuapp.com/api/routines/${_id}`,
         {
-          method: "POST",
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -32,9 +37,8 @@ export default function ActivitiesForm() {
       );
 
       const data = await response.json();
-
       console.log({ data });
-      history.push(`/activities`);
+      history.push(`/me`);
     } catch (err) {
       console.error(err);
     }
@@ -52,16 +56,25 @@ export default function ActivitiesForm() {
         />
       </div>
       <div>
-        <label>Description:</label>
-        <textarea
-          style={{ borderRadius: "5px" }}
-          name="description"
-          value={form.description}
+        <label>Goal:</label>
+        <input
+          type="text"
+          name="goal"
+          value={form.goal}
           onChange={handleChange}
         />
       </div>
-      <input type="submit" value="Add Activity" />
-      <button name="clear" onClick={() => history.push(`/routines`)}>
+      <div>
+        <label>Public:</label>
+        <input
+          type="checkbox"
+          name="isPublic"
+          value={form.isPublic}
+          onChange={handleChange}
+        />
+      </div>
+      <input type="submit" value="Finish editing" />
+      <button name="clear" onClick={() => history.push(`/me`)}>
         Cancel
       </button>
     </form>

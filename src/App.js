@@ -7,10 +7,10 @@ import {
   LoginOrRegister,
   Routines,
   Activities,
-  // RoutinesForm,
   AddNewRoutine,
   AddNewActivity,
   Me,
+  EditRoutine,
 } from "./components";
 
 function App() {
@@ -37,8 +37,8 @@ function App() {
             <Route exact path="/routines" component={Routines} />
             <Route exact path="/activities" component={Activities} />
             <Route path="/activities/new" component={AddNewActivity} />
-            {/* <Route path="/routines/:routineId/edit" component={RoutinesForm} /> */}
             <Route path="/routines/new" component={AddNewRoutine} />
+            <Route path="/routines/:routineId/edit" component={EditRoutine} />
             <Route path="/me" component={Me} />
           </>
         )}
